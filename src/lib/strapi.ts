@@ -3,16 +3,32 @@
 // dan akan fetch dari Strapi API jika STRAPI_URL di-set
 
 import {
-	dummyHero,
-	dummyJadwalIbadah,
-	dummyPengumuman,
-	dummyRayon,
-	dummyEvents,
-	dummyTentang,
-	dummyPelayanan,
-	dummyGaleri,
+	dummyHero
+} from '../data/dummy-hero';
+import {
+	dummyJadwalIbadah
+} from '../data/dummy-jadwal-ibadah';
+import {
+	dummyPengumuman
+} from '../data/dummy-pengumuman';
+import {
+	dummyRayon
+} from '../data/dummy-rayon';
+import {
+	dummyEvents
+} from '../data/dummy-events';
+import {
+	dummyTentang
+} from '../data/dummy-tentang';
+import {
+	dummyPelayanan
+} from '../data/dummy-pelayanan';
+import {
+	dummyGaleri
+} from '../data/dummy-galeri';
+import {
 	dummyGlobal
-} from '../data/dummy';
+} from '../data/dummy-global';
 
 const STRAPI_URL = import.meta.env.STRAPI_URL || '';
 const STRAPI_API_TOKEN = import.meta.env.STRAPI_API_TOKEN || '';
