@@ -1,4 +1,8 @@
 ---
+import { getTentang } from '../../lib/strapi';
+
+const tentangResponse = await getTentang();
+const tentangData = tentangResponse.data;
 ---
 
 <!-- Sejarah Section -->
@@ -11,17 +15,7 @@
 			</div>
 			
 			<div class="bg-gray-50 rounded-3xl p-8 md:p-12 shadow-lg">
-				<div class="space-y-6 text-gray-700 leading-relaxed">
-					<p class="text-lg">
-						GPdI Haleluya didirikan dengan visi untuk menjadi rumah bagi semua orang yang ingin bertumbuh dalam iman dan melayani dengan kasih. Sejak awal berdirinya, gereja ini telah menjadi tempat di mana ribuan jiwa menemukan pengharapan dan kedamaian.
-					</p>
-					<p class="text-lg">
-						Berawal dari sebuah kelompok doa kecil, GPdI Haleluya telah berkembang menjadi komunitas yang dinamis dengan berbagai pelayanan yang melayani berbagai kelompok usia dan kebutuhan. Setiap langkah perjalanan kami adalah bukti dari kasih dan kesetiaan Tuhan.
-					</p>
-					<p class="text-lg">
-						Hingga hari ini, kami terus berkomitmen untuk membangun jemaat yang solid, mengasihi satu sama lain, dan menjadi berkat bagi komunitas di sekitar kami.
-					</p>
-				</div>
+				<div class="space-y-6 text-gray-700 leading-relaxed" set:html={tentangData.sejarah || '<p class="text-lg">GPdI Haleluya didirikan dengan visi untuk menjadi rumah bagi semua orang yang ingin bertumbuh dalam iman dan melayani dengan kasih. Sejak awal berdirinya, gereja ini telah menjadi tempat di mana ribuan jiwa menemukan pengharapan dan kedamaian.</p>'}></div>
 			</div>
 		</div>
 	</div>

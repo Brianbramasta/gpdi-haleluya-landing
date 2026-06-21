@@ -1,4 +1,28 @@
 ---
+import { getTentang } from '../../lib/strapi';
+
+const tentangResponse = await getTentang();
+const tentangData = tentangResponse.data;
+
+// Icon components
+const icons = {
+	heart: `<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>`,
+	shield: `<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>`,
+	users: `<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>`,
+	zap: `<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>`,
+	book: `<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>`,
+	target: `<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>`
+};
+
+// Use nilai array from data or fallback to default
+const nilaiList = Array.isArray(tentangData.nilai) ? tentangData.nilai : [
+	{ judul: 'Kasih', ikon: 'heart', deskripsi: 'Mengasihi Tuhan dan sesama dengan sepenuh hati' },
+	{ judul: 'Integritas', ikon: 'shield', deskripsi: 'Hidup dengan jujur dan konsisten dalam kebenaran' },
+	{ judul: 'Komunitas', ikon: 'users', deskripsi: 'Membangun hubungan yang kuat dan saling mendukung' },
+	{ judul: 'Semangat', ikon: 'zap', deskripsi: 'Melayani dengan antusias dan penuh energi' },
+	{ judul: 'Pertumbuhan', ikon: 'book', deskripsi: 'Terus belajar dan bertumbuh dalam iman' },
+	{ judul: 'Dampak', ikon: 'target', deskripsi: 'Memberikan dampak positif bagi lingkungan sekitar' }
+];
 ---
 
 <!-- Nilai Section -->
@@ -11,65 +35,17 @@
 			</div>
 			
 			<div class="grid md:grid-cols-3 gap-6">
-				<div class="bg-gray-50 rounded-2xl p-6 text-center hover:shadow-lg transition-shadow">
-					<div class="w-16 h-16 bg-slate-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-						<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-						</svg>
-					</div>
-					<h3 class="text-xl font-black text-gray-800 mb-2">Kasih</h3>
-					<p class="text-gray-600">Mengasihi Tuhan dan sesama dengan sepenuh hati</p>
-				</div>
-				
-				<div class="bg-gray-50 rounded-2xl p-6 text-center hover:shadow-lg transition-shadow">
-					<div class="w-16 h-16 bg-slate-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-						<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-						</svg>
-					</div>
-					<h3 class="text-xl font-black text-gray-800 mb-2">Integritas</h3>
-					<p class="text-gray-600">Hidup dengan jujur dan konsisten dalam kebenaran</p>
-				</div>
-				
-				<div class="bg-gray-50 rounded-2xl p-6 text-center hover:shadow-lg transition-shadow">
-					<div class="w-16 h-16 bg-slate-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-						<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-						</svg>
-					</div>
-					<h3 class="text-xl font-black text-gray-800 mb-2">Komunitas</h3>
-					<p class="text-gray-600">Membangun hubungan yang kuat dan saling mendukung</p>
-				</div>
-				
-				<div class="bg-gray-50 rounded-2xl p-6 text-center hover:shadow-lg transition-shadow">
-					<div class="w-16 h-16 bg-slate-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-						<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-						</svg>
-					</div>
-					<h3 class="text-xl font-black text-gray-800 mb-2">Semangat</h3>
-					<p class="text-gray-600">Melayani dengan antusias dan penuh energi</p>
-				</div>
-				
-				<div class="bg-gray-50 rounded-2xl p-6 text-center hover:shadow-lg transition-shadow">
-					<div class="w-16 h-16 bg-slate-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-						<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-						</svg>
-					</div>
-					<h3 class="text-xl font-black text-gray-800 mb-2">Pertumbuhan</h3>
-					<p class="text-gray-600">Terus belajar dan bertumbuh dalam iman</p>
-				</div>
-				
-				<div class="bg-gray-50 rounded-2xl p-6 text-center hover:shadow-lg transition-shadow">
-					<div class="w-16 h-16 bg-slate-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-						<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-						</svg>
-					</div>
-					<h3 class="text-xl font-black text-gray-800 mb-2">Dampak</h3>
-					<p class="text-gray-600">Memberikan dampak positif bagi lingkungan sekitar</p>
-				</div>
+				{nilaiList.map((nilai: any) => {
+					const iconKey = (nilai.ikon as keyof typeof icons) || 'heart';
+					return (
+						<div class="bg-gray-50 rounded-2xl p-6 text-center hover:shadow-lg transition-shadow">
+							<div class="w-16 h-16 bg-slate-600 rounded-2xl flex items-center justify-center mx-auto mb-4" set:html={icons[iconKey]}>
+							</div>
+							<h3 class="text-xl font-black text-gray-800 mb-2">{nilai.judul}</h3>
+							<p class="text-gray-600 text-sm">{nilai.deskripsi}</p>
+						</div>
+					);
+				})}
 			</div>
 		</div>
 	</div>

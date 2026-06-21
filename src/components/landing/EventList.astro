@@ -1,4 +1,8 @@
 ---
+import { getEvents } from '../../lib/strapi';
+
+const eventsResponse = await getEvents();
+const eventsList = eventsResponse.data;
 ---
 
 <!-- Event List Section -->
@@ -6,137 +10,45 @@
 	<div class="container mx-auto px-6">
 		<div class="max-w-6xl mx-auto">
 			<div class="space-y-8">
-				<!-- Event 1 -->
-				<div class="bg-gray-50 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-					<div class="grid md:grid-cols-3">
-						<div class="bg-slate-600 p-8 flex flex-col items-center justify-center text-white">
-							<div class="text-5xl font-black">15</div>
-							<div class="text-2xl font-bold">Juli</div>
-							<div class="text-lg">2026</div>
-						</div>
-						<div class="md:col-span-2 p-8">
-							<div class="inline-block bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-sm font-medium mb-4">
-								Ibadah Khusus
-							</div>
-							<h3 class="text-2xl font-black text-gray-800 mb-3">Ibadah Syukur Anniversary Gereja</h3>
-							<p class="text-gray-600 mb-4">Merayakan ulang tahun gereja dengan ibadah syukur dan fellowship bersama seluruh jemaat.</p>
-							<div class="flex flex-wrap gap-4 text-sm text-slate-600">
-								<span class="flex items-center gap-2">
-									<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-									</svg>
-									09.00 - 12.00 WIB
-								</span>
-								<span class="flex items-center gap-2">
-									<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-									</svg>
-									Gedung Gereja
-								</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-				<!-- Event 2 -->
-				<div class="bg-gray-50 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-					<div class="grid md:grid-cols-3">
-						<div class="bg-slate-600 p-8 flex flex-col items-center justify-center text-white">
-							<div class="text-5xl font-black">22</div>
-							<div class="text-2xl font-bold">Juli</div>
-							<div class="text-lg">2026</div>
-						</div>
-						<div class="md:col-span-2 p-8">
-							<div class="inline-block bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-sm font-medium mb-4">
-								Retreat
-							</div>
-							<h3 class="text-2xl font-black text-gray-800 mb-3">Youth Retreat 2026</h3>
-							<p class="text-gray-600 mb-4">Retreat pemuda dengan tema "Bertumbuh Bersama" untuk mempererat hubungan dengan Tuhan dan sesama.</p>
-							<div class="flex flex-wrap gap-4 text-sm text-slate-600">
-								<span class="flex items-center gap-2">
-									<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-									</svg>
-									22-24 Juli 2026
-								</span>
-								<span class="flex items-center gap-2">
-									<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-									</svg>
-									Locasi Retreat
-								</span>
+				{eventsList.map((event: any) => {
+					const eventDate = new Date(event.tanggal);
+					const day = eventDate.getDate();
+					const month = eventDate.toLocaleDateString('id-ID', { month: 'long' });
+					const year = eventDate.getFullYear();
+					return (
+						<div class="bg-gray-50 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+							<div class="grid md:grid-cols-3">
+								<div class="bg-slate-600 p-8 flex flex-col items-center justify-center text-white">
+									<div class="text-5xl font-black">{day}</div>
+									<div class="text-2xl font-bold">{month}</div>
+									<div class="text-lg">{year}</div>
+								</div>
+								<div class="md:col-span-2 p-8">
+									<div class="inline-block bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-sm font-medium mb-4">
+										{event.kategori}
+									</div>
+									<h3 class="text-2xl font-black text-gray-800 mb-3">{event.judul}</h3>
+									<p class="text-gray-600 mb-4">{event.deskripsi}</p>
+									<div class="flex flex-wrap gap-4 text-sm text-slate-600">
+										<span class="flex items-center gap-2">
+											<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+											</svg>
+											{event.waktu}
+										</span>
+										<span class="flex items-center gap-2">
+											<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+											</svg>
+											{event.lokasi}
+										</span>
+									</div>
+								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-				
-				<!-- Event 3 -->
-				<div class="bg-gray-50 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-					<div class="grid md:grid-cols-3">
-						<div class="bg-slate-600 p-8 flex flex-col items-center justify-center text-white">
-							<div class="text-5xl font-black">05</div>
-							<div class="text-2xl font-bold">Agustus</div>
-							<div class="text-lg">2026</div>
-						</div>
-						<div class="md:col-span-2 p-8">
-							<div class="inline-block bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-sm font-medium mb-4">
-								Seminar
-							</div>
-							<h3 class="text-2xl font-black text-gray-800 mb-3">Seminar Parenting</h3>
-							<p class="text-gray-600 mb-4">Seminar parenting untuk membantu orang tua dalam mendidik anak sesuai dengan firman Tuhan.</p>
-							<div class="flex flex-wrap gap-4 text-sm text-slate-600">
-								<span class="flex items-center gap-2">
-									<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-									</svg>
-									09.00 - 15.00 WIB
-								</span>
-								<span class="flex items-center gap-2">
-									<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-									</svg>
-									Gedung Gereja
-								</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-				<!-- Event 4 -->
-				<div class="bg-gray-50 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-					<div class="grid md:grid-cols-3">
-						<div class="bg-slate-600 p-8 flex flex-col items-center justify-center text-white">
-							<div class="text-5xl font-black">12</div>
-							<div class="text-2xl font-bold">Agustus</div>
-							<div class="text-lg">2026</div>
-						</div>
-						<div class="md:col-span-2 p-8">
-							<div class="inline-block bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-sm font-medium mb-4">
-								Baptisan
-							</div>
-							<h3 class="text-2xl font-black text-gray-800 mb-3">Baptisan Air</h3>
-							<p class="text-gray-600 mb-4">Ibadah baptisan air bagi jemaat yang ingin mengikuti perintah Tuhan untuk dibaptis.</p>
-							<div class="flex flex-wrap gap-4 text-sm text-slate-600">
-								<span class="flex items-center gap-2">
-									<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-									</svg>
-									10.00 WIB
-								</span>
-								<span class="flex items-center gap-2">
-									<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-									</svg>
-									Gedung Gereja
-								</span>
-							</div>
-						</div>
-					</div>
-				</div>
+					);
+				})}
 			</div>
 		</div>
 	</div>

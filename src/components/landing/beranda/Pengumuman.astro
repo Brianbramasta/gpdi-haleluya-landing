@@ -1,4 +1,8 @@
 ---
+import { getPengumuman, formatDate } from '../../../lib/strapi';
+
+const pengumumanResponse = await getPengumuman();
+const pengumumanList = pengumumanResponse.data;
 ---
 
 <!-- Pengumuman - Horizontal Scroll Cards -->
@@ -13,29 +17,18 @@
 		</div>
 		
 		<div class="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory scrollbar-hide">
-			<div class="min-w-[350px] md:min-w-[400px] bg-gradient-to-br from-slate-600 to-slate-700 rounded-3xl p-8 snap-center transform hover:scale-105 transition-all duration-300 shadow-2xl">
-				<div class="bg-white/20 backdrop-blur-sm rounded-full px-4 py-1 inline-block mb-4">
-					<span class="text-white text-sm font-medium">Juli 2026</span>
-				</div>
-				<h3 class="text-2xl font-bold text-white mb-3">Retreat Pemuda</h3>
-				<p class="text-white/90">Tema: "Berani Berbeda". Bergabunglah dalam retreat pemuda yang akan diadakan bulan ini.</p>
-			</div>
-			
-			<div class="min-w-[350px] md:min-w-[400px] bg-gradient-to-br from-gray-600 to-gray-700 rounded-3xl p-8 snap-center transform hover:scale-105 transition-all duration-300 shadow-2xl">
-				<div class="bg-white/20 backdrop-blur-sm rounded-full px-4 py-1 inline-block mb-4">
-					<span class="text-white text-sm font-medium">November 2026</span>
-				</div>
-				<h3 class="text-2xl font-bold text-white mb-3">Perayaan Natal</h3>
-				<p class="text-white/90">Persiapan perayaan Natal akan dimulai. Daftarkan diri untuk ikut pelayanan.</p>
-			</div>
-			
-			<div class="min-w-[350px] md:min-w-[400px] bg-gradient-to-br from-zinc-600 to-zinc-700 rounded-3xl p-8 snap-center transform hover:scale-105 transition-all duration-300 shadow-2xl">
-				<div class="bg-white/20 backdrop-blur-sm rounded-full px-4 py-1 inline-block mb-4">
-					<span class="text-white text-sm font-medium">Setiap Minggu</span>
-				</div>
-				<h3 class="text-2xl font-bold text-white mb-3">Sekolah Minggu</h3>
-				<p class="text-white/90">Kelas dibuka setiap minggu. Anak usia 3-12 tahun sangat welcome!</p>
-			</div>
+			{pengumumanList.map((pengumuman: any, index: number) => {
+				const bgClass = index % 3 === 0 ? 'from-slate-600 to-slate-700' : index % 3 === 1 ? 'from-gray-600 to-gray-700' : 'from-zinc-600 to-zinc-700';
+				return (
+					<div class={`min-w-[350px] md:min-w-[400px] bg-gradient-to-br ${bgClass} rounded-3xl p-8 snap-center transform hover:scale-105 transition-all duration-300 shadow-2xl`}>
+						<div class="bg-white/20 backdrop-blur-sm rounded-full px-4 py-1 inline-block mb-4">
+							<span class="text-white text-sm font-medium">{formatDate(pengumuman.tanggal)}</span>
+						</div>
+						<h3 class="text-2xl font-bold text-white mb-3">{pengumuman.judul}</h3>
+						<p class="text-white/90">{pengumuman.deskripsi}</p>
+					</div>
+				);
+			})}
 		</div>
 	</div>
 </section>

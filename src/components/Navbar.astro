@@ -1,4 +1,8 @@
 ---
+import { getGlobal } from '../lib/strapi';
+
+const globalResponse = await getGlobal();
+const globalData = globalResponse.data;
 ---
 
 <!-- Sticky Navbar -->
@@ -10,7 +14,7 @@
 				<div class="w-10 h-10 bg-gradient-to-br from-slate-600 to-slate-700 rounded-xl flex items-center justify-center">
 					<img src="/logo-haleluya-nobg.png" alt="Logo" class="w-8 h-8" />
 				</div>
-				<span class="text-white font-bold text-xl hidden sm:block">GPdI Haleluya</span>
+				<span class="text-white font-bold text-xl hidden sm:block">{globalData.nama_gereja || 'GPdI Haleluya'}</span>
 			</a>
 			
 			<!-- Desktop Navigation -->

@@ -1,4 +1,15 @@
 ---
+import { getJadwalIbadah } from '../../../lib/strapi';
+
+const jadwalResponse = await getJadwalIbadah();
+const jadwalList = jadwalResponse.data;
+
+// Group jadwal by hari
+const hariOrder = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+const jadwalByHari = hariOrder.reduce((acc, hari) => {
+	acc[hari] = jadwalList.filter((j: any) => j.hari === hari);
+	return acc;
+}, {} as Record<string, typeof jadwalList>);
 ---
 
 <!-- Jadwal Ibadah - Asymmetric Grid -->
@@ -21,133 +32,54 @@
 		
 		<div class="space-y-8">
 			<!-- Doa Pagi Banner -->
-			<div class="bg-gradient-to-r from-amber-600 to-amber-700 rounded-3xl p-8 text-white shadow-2xl">
-				<div class="flex items-center gap-4">
-					<div class="bg-white/20 p-4 rounded-2xl">
-						<svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path></svg>
-					</div>
-					<div>
-						<h4 class="text-2xl font-bold mb-1">Doa Pagi Setiap Hari</h4>
-						<p class="text-amber-100">Senin-Kamis: 04.30 | Sabtu: 05.00 (Kecuali Jumat & Minggu)</p>
+			{jadwalByHari['Senin']?.length > 0 && (
+				<div class="bg-gradient-to-r from-amber-600 to-amber-700 rounded-3xl p-8 text-white shadow-2xl">
+					<div class="flex items-center gap-4">
+						<div class="bg-white/20 p-4 rounded-2xl">
+							<svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path></svg>
+						</div>
+						<div>
+							<h4 class="text-2xl font-bold mb-1">{jadwalByHari['Senin'][0].keterangan || 'Doa Pagi'}</h4>
+							<p class="text-amber-100">{jadwalByHari['Senin'][0].waktu}</p>
+						</div>
 					</div>
 				</div>
-			</div>
+			)}
 
 			<!-- Weekly Schedule Grid -->
 			<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-				<!-- Selasa -->
-				<div class="bg-gradient-to-br from-slate-700 to-slate-800 rounded-3xl p-6 text-white transform hover:scale-105 transition-all duration-300 shadow-2xl">
-					<div class="text-center mb-4">
-						<h4 class="text-3xl font-black">SELASA</h4>
-					</div>
-					<div class="space-y-3">
-						<div class="bg-white/10 rounded-xl p-3">
-							<p class="font-bold text-sm">Ibadah Kaum Wanita</p>
-							<p class="text-slate-300 text-lg font-bold">17.00</p>
+				{hariOrder.map((hari) => {
+					const jadwalHari = jadwalByHari[hari];
+					if (!jadwalHari || jadwalHari.length === 0) return null;
+					
+					const isMinggu = hari === 'Minggu';
+					const gridClass = isMinggu ? 'md:col-span-2 lg:col-span-3' : '';
+					const bgClass = {
+						'Senin': 'from-amber-700 to-amber-800',
+						'Selasa': 'from-slate-700 to-slate-800',
+						'Rabu': 'from-gray-700 to-gray-800',
+						'Kamis': 'from-zinc-700 to-zinc-800',
+						'Jumat': 'from-stone-700 to-stone-800',
+						'Sabtu': 'from-blue-700 to-blue-800',
+						'Minggu': 'from-emerald-700 to-emerald-800'
+					}[hari];
+					
+					return (
+						<div class={`bg-gradient-to-br ${bgClass} rounded-3xl p-6 text-white transform hover:scale-105 transition-all duration-300 shadow-2xl ${gridClass}`}>
+							<div class="text-center mb-4">
+								<h4 class={`font-black ${isMinggu ? 'text-4xl mb-6' : 'text-3xl'}`}>{hari.toUpperCase()}</h4>
+							</div>
+							<div class={`${isMinggu ? 'grid md:grid-cols-2 lg:grid-cols-4 gap-4' : 'space-y-3'}`}>
+								{jadwalHari.map((jadwal: any) => (
+									<div class={`bg-white/10 rounded-xl ${isMinggu ? 'p-4' : jadwalHari.length > 3 ? 'p-2' : 'p-3'}`}>
+										<p class={`font-bold ${isMinggu ? 'text-sm mb-1' : jadwalHari.length > 3 ? 'text-xs' : 'text-sm'}`}>{jadwal.nama_ibadah}</p>
+										<p class={`text-slate-300 font-bold ${isMinggu ? 'text-2xl' : 'text-lg'}`}>{jadwal.waktu}</p>
+									</div>
+								))}
+							</div>
 						</div>
-					</div>
-				</div>
-
-				<!-- Rabu -->
-				<div class="bg-gradient-to-br from-gray-700 to-gray-800 rounded-3xl p-6 text-white transform hover:scale-105 transition-all duration-300 shadow-2xl">
-					<div class="text-center mb-4">
-						<h4 class="text-3xl font-black">RABU</h4>
-					</div>
-					<div class="space-y-3">
-						<div class="bg-white/10 rounded-xl p-3">
-							<p class="font-bold text-sm">Persekutuan Doa Pemuda</p>
-							<p class="text-slate-300 text-lg font-bold">18.30</p>
-						</div>
-						<div class="bg-white/10 rounded-xl p-3">
-							<p class="font-bold text-sm">Ibadah Keluarga Muda</p>
-							<p class="text-slate-300 text-lg font-bold">19.00</p>
-						</div>
-					</div>
-				</div>
-
-				<!-- Kamis -->
-				<div class="bg-gradient-to-br from-zinc-700 to-zinc-800 rounded-3xl p-6 text-white transform hover:scale-105 transition-all duration-300 shadow-2xl">
-					<div class="text-center mb-4">
-						<h4 class="text-3xl font-black">KAMIS</h4>
-					</div>
-					<div class="space-y-2">
-						<div class="bg-white/10 rounded-xl p-2">
-							<p class="font-bold text-xs">Doa Puasa Session I</p>
-							<p class="text-slate-300 font-bold">08.00</p>
-						</div>
-						<div class="bg-white/10 rounded-xl p-2">
-							<p class="font-bold text-xs">Doa Puasa Session II</p>
-							<p class="text-slate-300 font-bold">10.00</p>
-						</div>
-						<div class="bg-white/10 rounded-xl p-2">
-							<p class="font-bold text-xs">Ibadah Tengah Minggu</p>
-							<p class="text-slate-300 font-bold">18.00</p>
-						</div>
-						<div class="bg-white/10 rounded-xl p-2">
-							<p class="font-bold text-xs">Doa Malam Session I</p>
-							<p class="text-slate-300 font-bold">20.00</p>
-						</div>
-						<div class="bg-white/10 rounded-xl p-2">
-							<p class="font-bold text-xs">Doa Malam Session II</p>
-							<p class="text-slate-300 font-bold">22.00</p>
-						</div>
-					</div>
-				</div>
-
-				<!-- Jumat -->
-				<div class="bg-gradient-to-br from-stone-700 to-stone-800 rounded-3xl p-6 text-white transform hover:scale-105 transition-all duration-300 shadow-2xl">
-					<div class="text-center mb-4">
-						<h4 class="text-3xl font-black">JUMAT</h4>
-					</div>
-					<div class="space-y-3">
-						<div class="bg-white/10 rounded-xl p-3">
-							<p class="font-bold text-sm">Ibadah Kaum Pria</p>
-							<p class="text-slate-300 text-lg font-bold">18.30</p>
-						</div>
-					</div>
-				</div>
-
-				<!-- Sabtu -->
-				<div class="bg-gradient-to-br from-blue-700 to-blue-800 rounded-3xl p-6 text-white transform hover:scale-105 transition-all duration-300 shadow-2xl">
-					<div class="text-center mb-4">
-						<h4 class="text-3xl font-black">SABTU</h4>
-					</div>
-					<div class="space-y-3">
-						<div class="bg-white/10 rounded-xl p-3">
-							<p class="font-bold text-sm">Ibadah Pemuda</p>
-							<p class="text-slate-300 text-lg font-bold">17.00</p>
-						</div>
-						<div class="bg-white/10 rounded-xl p-3">
-							<p class="font-bold text-sm">Ibadah HCC</p>
-							<p class="text-slate-300 text-lg font-bold">17.00</p>
-						</div>
-					</div>
-				</div>
-
-				<!-- Minggu - Span 3 columns -->
-				<div class="md:col-span-2 lg:col-span-3 bg-gradient-to-br from-emerald-700 to-emerald-800 rounded-3xl p-8 text-white transform hover:scale-105 transition-all duration-300 shadow-2xl">
-					<div class="text-center mb-6">
-						<h4 class="text-4xl font-black">MINGGU</h4>
-					</div>
-					<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-						<div class="bg-white/10 rounded-xl p-4">
-							<p class="font-bold text-sm mb-1">Ibadah Raya Umum I</p>
-							<p class="text-emerald-100 text-2xl font-black">06.00</p>
-						</div>
-						<div class="bg-white/10 rounded-xl p-4">
-							<p class="font-bold text-sm mb-1">Ibadah Sekolah Minggu</p>
-							<p class="text-emerald-100 text-2xl font-black">09.00</p>
-						</div>
-						<div class="bg-white/10 rounded-xl p-4">
-							<p class="font-bold text-sm mb-1">Ibadah Raya Umum II</p>
-							<p class="text-emerald-100 text-2xl font-black">09.00</p>
-						</div>
-						<div class="bg-white/10 rounded-xl p-4">
-							<p class="font-bold text-sm mb-1">Ibadah Raya Umum III</p>
-							<p class="text-emerald-100 text-2xl font-black">16.00</p>
-						</div>
-					</div>
-				</div>
+					);
+				})}
 			</div>
 
 			<!-- Tips -->

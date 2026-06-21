@@ -1,4 +1,8 @@
 ---
+import { getTentang } from '../../lib/strapi';
+
+const tentangResponse = await getTentang();
+const tentangData = tentangResponse.data;
 ---
 
 <!-- Visi Misi Section -->
@@ -22,9 +26,7 @@
 						</div>
 						<h3 class="text-2xl font-black text-gray-800">Visi</h3>
 					</div>
-					<p class="text-gray-700 text-lg leading-relaxed">
-						Menjadi gereja yang bertumbuh dalam iman, melayani dengan kasih, dan memberikan dampak positif bagi komunitas dan kota.
-					</p>
+					<p class="text-gray-700 text-lg leading-relaxed" set:html={tentangData.visi || 'Menjadi gereja yang bertumbuh dalam iman, melayani dengan kasih, dan memberikan dampak positif bagi komunitas dan kota.'}></p>
 				</div>
 				
 				<!-- Misi -->
@@ -37,24 +39,7 @@
 						</div>
 						<h3 class="text-2xl font-black text-gray-800">Misi</h3>
 					</div>
-					<ul class="space-y-3 text-gray-700 text-lg">
-						<li class="flex items-start gap-3">
-							<span class="text-slate-600 font-bold">•</span>
-							<span>Membangun jemaat yang solid dan mengasihi satu sama lain</span>
-						</li>
-						<li class="flex items-start gap-3">
-							<span class="text-slate-600 font-bold">•</span>
-							<span>Mengembangkan potensi setiap individu untuk melayani Tuhan</span>
-						</li>
-						<li class="flex items-start gap-3">
-							<span class="text-slate-600 font-bold">•</span>
-							<span>Menjadi berkat bagi komunitas di sekitar gereja</span>
-						</li>
-						<li class="flex items-start gap-3">
-							<span class="text-slate-600 font-bold">•</span>
-							<span>Menjangkau jiwa-jiwa dengan kasih dan kebenaran</span>
-						</li>
-					</ul>
+					<ul class="space-y-3 text-gray-700 text-lg" set:html={tentangData.misi || '<li class="flex items-start gap-3"><span class="text-slate-600 font-bold">•</span><span>Membangun jemaat yang solid dan mengasihi satu sama lain</span></li><li class="flex items-start gap-3"><span class="text-slate-600 font-bold">•</span><span>Mengembangkan potensi setiap individu untuk melayani Tuhan</span></li><li class="flex items-start gap-3"><span class="text-slate-600 font-bold">•</span><span>Menjadi berkat bagi komunitas di sekitar gereja</span></li><li class="flex items-start gap-3"><span class="text-slate-600 font-bold">•</span><span>Menjangkau jiwa-jiwa dengan kasih dan kebenaran</span></li>'}></ul>
 				</div>
 			</div>
 		</div>

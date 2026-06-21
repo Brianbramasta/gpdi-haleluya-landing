@@ -1,151 +1,49 @@
 ---
+import { getRayon, formatDate } from '../../../lib/strapi';
+
+const rayonResponse = await getRayon();
+const rayonList = rayonResponse.data;
 ---
 
 <!-- Rayon List Section -->
 <section class="py-20 bg-gray-50">
 	<div class="container mx-auto px-6">
 		<div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-			
-			<!-- Rayon Bukit Sion -->
-			<div class="bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-100">
-				<div class="flex items-center gap-4 mb-6">
-					<div class="w-16 h-16 bg-gradient-to-br from-slate-600 to-slate-700 rounded-2xl flex items-center justify-center">
-						<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-						</svg>
+			{rayonList.map((rayon: any) => (
+				<div class="bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-100">
+					<div class="flex items-center gap-4 mb-6">
+						<div class="w-16 h-16 bg-gradient-to-br from-slate-600 to-slate-700 rounded-2xl flex items-center justify-center">
+							<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+							</svg>
+						</div>
+						<div>
+							<h3 class="text-2xl font-bold text-gray-800">{rayon.nama}</h3>
+						</div>
 					</div>
-					<div>
-						<h3 class="text-2xl font-bold text-gray-800">RAYON BUKIT SION</h3>
-					</div>
-				</div>
-				<div class="space-y-3 text-gray-600">
-					<div class="flex items-center gap-3">
-						<svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-						</svg>
-						<span class="font-medium">Rabu, 28 November 2018</span>
-					</div>
-					<div class="flex items-center gap-3">
-						<svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-						</svg>
-						<span class="font-medium">Pukul : 19.00</span>
-					</div>
-					<div class="flex items-start gap-3">
-						<svg class="w-5 h-5 text-slate-600 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-						</svg>
-						<span class="font-medium">Kel. Bpk. Samuel Hadi<br>Rungkut Asri Timur XV/22</span>
-					</div>
-				</div>
-			</div>
-
-			<!-- Rayon Betlehem -->
-			<div class="bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-100">
-				<div class="flex items-center gap-4 mb-6">
-					<div class="w-16 h-16 bg-gradient-to-br from-slate-600 to-slate-700 rounded-2xl flex items-center justify-center">
-						<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-						</svg>
-					</div>
-					<div>
-						<h3 class="text-2xl font-bold text-gray-800">RAYON BETLEHEM</h3>
+					<div class="space-y-3 text-gray-600">
+						<div class="flex items-center gap-3">
+							<svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+							</svg>
+							<span class="font-medium">{formatDate(rayon.tanggal)}</span>
+						</div>
+						<div class="flex items-center gap-3">
+							<svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+							</svg>
+							<span class="font-medium">Pukul : {rayon.waktu}</span>
+						</div>
+						<div class="flex items-start gap-3">
+							<svg class="w-5 h-5 text-slate-600 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+							</svg>
+							<span class="font-medium" set:html={rayon.lokasi}></span>
+						</div>
 					</div>
 				</div>
-				<div class="space-y-3 text-gray-600">
-					<div class="flex items-center gap-3">
-						<svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-						</svg>
-						<span class="font-medium">Jum'at, 30 November 2018</span>
-					</div>
-					<div class="flex items-center gap-3">
-						<svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-						</svg>
-						<span class="font-medium">Pukul : 18.00</span>
-					</div>
-					<div class="flex items-start gap-3">
-						<svg class="w-5 h-5 text-slate-600 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-						</svg>
-						<span class="font-medium">Kel. Bp. Gunawan Limanto<br>Dukuh Kupang 1/117</span>
-					</div>
-				</div>
-			</div>
-
-			<!-- Rayon Torsina -->
-			<div class="bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-100">
-				<div class="flex items-center gap-4 mb-6">
-					<div class="w-16 h-16 bg-gradient-to-br from-slate-600 to-slate-700 rounded-2xl flex items-center justify-center">
-						<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-						</svg>
-					</div>
-					<div>
-						<h3 class="text-2xl font-bold text-gray-800">RAYON TORSINA</h3>
-					</div>
-				</div>
-				<div class="space-y-3 text-gray-600">
-					<div class="flex items-center gap-3">
-						<svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-						</svg>
-						<span class="font-medium">Sabtu, 01 Desember 2018</span>
-					</div>
-					<div class="flex items-center gap-3">
-						<svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-						</svg>
-						<span class="font-medium">Pukul : 18.30</span>
-					</div>
-					<div class="flex items-start gap-3">
-						<svg class="w-5 h-5 text-slate-600 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-						</svg>
-						<span class="font-medium">Kel. Bpk. Mulyanto<br>Rungkut Mutiara Blok C-14<br>Grand City Regency, Rungkut Madya</span>
-					</div>
-				</div>
-			</div>
-
-			<!-- Rayon Agape -->
-			<div class="bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-100">
-				<div class="flex items-center gap-4 mb-6">
-					<div class="w-16 h-16 bg-gradient-to-br from-slate-600 to-slate-700 rounded-2xl flex items-center justify-center">
-						<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-						</svg>
-					</div>
-					<div>
-						<h3 class="text-2xl font-bold text-gray-800">RAYON AGAPE</h3>
-					</div>
-				</div>
-				<div class="space-y-3 text-gray-600">
-					<div class="flex items-center gap-3">
-						<svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-						</svg>
-						<span class="font-medium">Sabtu, 01 Desember 2018</span>
-					</div>
-					<div class="flex items-center gap-3">
-						<svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-						</svg>
-						<span class="font-medium">Pukul : 17.00</span>
-					</div>
-					<div class="flex items-start gap-3">
-						<svg class="w-5 h-5 text-slate-600 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-						</svg>
-						<span class="font-medium">Kel. Bpk. Soebroto<br>Rungkut Mapan Tengah 1/FD-12</span>
-					</div>
-				</div>
-			</div>
-
+			))}
 		</div>
 	</div>
 </section>
