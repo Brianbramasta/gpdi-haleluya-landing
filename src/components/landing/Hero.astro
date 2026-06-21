@@ -1,0 +1,64 @@
+---
+---
+
+<!-- Hero Section - Split Diagonal Layout -->
+<section class="relative min-h-screen overflow-hidden">
+	<div class="absolute inset-0">
+		<!-- Background Image -->
+		<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=1920&q=80');"></div>
+		<!-- Overlay Gradient -->
+		<div class="absolute inset-0 bg-gradient-to-br from-amber-900/90 via-orange-900/85 to-red-900/90"></div>
+		<div class="absolute top-20 right-0 w-96 h-96 bg-yellow-400 rounded-full blur-3xl opacity-20"></div>
+		<div class="absolute bottom-20 left-0 w-96 h-96 bg-pink-500 rounded-full blur-3xl opacity-20"></div>
+	</div>
+	
+	<div class="relative container mx-auto px-6 min-h-screen flex items-center">
+		<div class="grid lg:grid-cols-2 gap-12 items-center w-full">
+			<div class="text-white space-y-8">
+				<div class="inline-block bg-white/20 backdrop-blur-sm px-6 py-2 rounded-full text-sm font-medium">
+					✨ Selamat Datang di GPdI Haleluya
+				</div>
+				<h1 class="text-6xl md:text-8xl font-black leading-tight tracking-tight">
+					<span class="block">Bertumbuh</span>
+					<span class="block text-yellow-300">dalam Iman</span>
+				</h1>
+				<p class="text-2xl md:text-3xl font-light text-white/90 max-w-lg">
+					Melayani dengan Kasih
+				</p>
+				<div class="flex flex-wrap gap-4 pt-4">
+					<a href="#jadwal" class="group bg-white text-orange-600 px-8 py-4 rounded-2xl font-bold hover:bg-yellow-300 transition-all transform hover:scale-105 shadow-2xl">
+						Jadwal Ibadah
+						<span class="inline-block ml-2 group-hover:translate-x-1 transition-transform">→</span>
+					</a>
+					<a href="https://wa.me/6281234567890" target="_blank" class="bg-white/20 backdrop-blur-sm text-white px-8 py-4 rounded-2xl font-bold hover:bg-white/30 transition-all border-2 border-white/30">
+						Hubungi Kami
+					</a>
+				</div>
+			</div>
+			
+			<div class="hidden lg:block relative">
+				<div class="relative bg-white/10 backdrop-blur-md rounded-3xl p-8 transform rotate-3 hover:rotate-0 transition-transform duration-500">
+					<div class="space-y-6">
+						<div class="bg-white rounded-2xl p-6 shadow-2xl transform -rotate-2 hover:rotate-0 transition-transform">
+							<p class="text-orange-600 font-bold text-lg">Ibadah Minggu</p>
+							<p class="text-4xl font-black text-gray-800">07.00</p>
+						</div>
+						<div class="bg-white rounded-2xl p-6 shadow-2xl transform rotate-2 hover:rotate-0 transition-transform ml-8">
+							<p class="text-pink-600 font-bold text-lg">Youth Service</p>
+							<p class="text-4xl font-black text-gray-800">18.00</p>
+						</div>
+						<div class="bg-white rounded-2xl p-6 shadow-2xl transform -rotate-1 hover:rotate-0 transition-transform">
+							<p class="text-green-600 font-bold text-lg">Doa Pagi</p>
+							<p class="text-4xl font-black text-gray-800">05.00</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Scroll indicator -->
+	<div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+		<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+	</div>
+</section>
